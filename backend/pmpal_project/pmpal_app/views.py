@@ -5,6 +5,10 @@ from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from .models import Task, Document
 from .serializers import TaskSerializer, DocumentSerializer
+from django.http import JsonResponse
+
+def index(request):
+        return JsonResponse({'message': 'Welcome to the PM-PAL API'})
 
 class TaskViewSet(viewsets.ModelViewSet):
     serializer_class = TaskSerializer
@@ -17,7 +21,8 @@ class TaskViewSet(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
         task = serializer.save(created_by=request.user)  # Assign the task to the authenticated user
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-
+    
+    
     def update(self, request, *args, **kwargs):
         partial = kwargs.pop('partial', False)
         instance = self.get_object()

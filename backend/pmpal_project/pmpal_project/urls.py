@@ -17,6 +17,6 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    # ... other paths
-    path('api/', include('pmpal_app.urls')),  # Include the app's API URLs
+     path('', include('pmpal_app.urls')),
+    path('api/', include('pmpal_app.urls')),  
 ]

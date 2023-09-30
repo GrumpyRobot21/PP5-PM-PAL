@@ -1,0 +1,22 @@
+.home-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.rectangle {
+  border: 2px solid black;
+  padding: 20px;
+  background-color: white;
+}
+
+.app-name {
+  text-align: center;
+}
+
+.buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}

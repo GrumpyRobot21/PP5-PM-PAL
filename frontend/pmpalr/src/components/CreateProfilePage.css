@@ -3,12 +3,21 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  padding: 40px;
+  font-family: 'Righteous', cursive;
+}
+
+.central-content {
+  border: 2px solid black;
+  border-radius: 15px;
   padding: 20px;
+  max-width: 600px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 20px;
 }
 
 .create-profile-page h2 {
-  font-family: 'Righteous', cursive;
   font-size: 2em;
   margin-bottom: 20px;
 }
@@ -23,10 +32,11 @@
   padding: 10px;
   border: 2px solid black;
   border-radius: 10px;
+  margin-bottom: 10px;
 }
 
 .create-profile-page button {
-  margin-top: 20px;
+  margin: 5px;
   padding: 10px 20px;
   border: 2px solid black;
   background-color: blue;
@@ -34,22 +44,55 @@
   cursor: pointer;
   border-radius: 10px;
   font-weight: bold;
+  font-size: 1.2em;
+  font-family: 'Righteous', cursive;
+  text-decoration: none;
+  min-height: 50px;
 }
 
 .create-profile-page button:hover {
   background-color: green;
 }
 
-.create-profile-page label {
-  display: block;
-  margin-bottom: 5px;
-}
-
-.create-profile-page input {
-  width: calc(100% - 20px);
-}
-
-.create-profile-page button {
+/* Align the "Save and Confirm" button */
+.create-profile-page .save-confirm-button {
   margin-top: 20px;
-  align-self: flex-end;
+}
+
+/* Apply button styling to the Home button */
+.create-profile-page .home-button {
+  margin: 5px;
+  padding: 10px 20px;
+  border: 2px solid black;
+  background-color: blue;
+  color: white;
+  cursor: pointer;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 1.2em;
+  font-family: 'Righteous', cursive;
+  text-decoration: none;
+  min-height: 50px;
+}
+
+.create-profile-page .home-button a {
+  text-decoration: none;
+  color: white;
+}
+
+.create-profile-page .home-button:hover {
+  background-color: green;
+}
+
+.create-profile-page .pm-pal-text {
+  font-family: 'Luckiest Guy', cursive;
+  font-size: 3em;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.create-profile-page .title {
+  font-family: 'Righteous', cursive;
+  font-size: 2em;
 }

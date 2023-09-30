@@ -16,12 +16,10 @@
   border-radius: 10px;
   margin: 20px 0;
   width: 50%;
-  /* Adjust the width as needed */
 }
 
 .text-container {
   width: 50%;
-  /* Adjust the width as needed */
 }
 
 .title {
@@ -35,6 +33,22 @@
   text-align: center;
 }
 
+.create-profile-button {
+  margin: 5px;
+  padding: 10px 20px;
+  border: 2px solid black;
+  background-color: blue;
+  color: white;
+  cursor: pointer;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 1.2em;
+  font-family: 'Righteous', cursive;
+  text-decoration: none;
+  display: inline-block;
+  min-height: 26px;
+}
+
 .buttons button {
   margin: 5px;
   padding: 10px 20px;
@@ -44,11 +58,17 @@
   cursor: pointer;
   border-radius: 10px;
   font-weight: bold;
-  /* Make the text bold */
   font-size: 1.2em;
-  /* Adjust the font size */
+  font-family: 'Righteous', cursive;
+  text-decoration: none;
+  display: inline-block;
+  min-height: 50px;
 }
 
 .buttons button:hover {
+  background-color: green;
+}
+
+.create-profile-button:hover {
   background-color: green;
 }

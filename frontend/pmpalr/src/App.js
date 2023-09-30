@@ -1,5 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';  // Update import
+
 import HomePage from './components/HomePage';
 import CreateProfilePage from './components/CreateProfilePage';
 import './App.css';
@@ -8,10 +9,10 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Switch>
-          <Route path="/" exact component={HomePage} />
-          <Route path="/create-profile" component={CreateProfilePage} />
-        </Switch>
+        <Routes>  {/* Use Routes component instead of Switch */}
+          <Route path="/" element={<HomePage />} />  {/* Use element prop */}
+          <Route path="/create-profile" element={<CreateProfilePage />} />  {/* Use element prop */}
+        </Routes>
       </div>
     </Router>
   );

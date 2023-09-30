@@ -1,12 +1,19 @@
 import React from 'react';
-import HomePage from './HomePage'; // Import the HomePage component
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import HomePage from './components/HomePage';
+import CreateProfilePage from './components/CreateProfilePage';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <HomePage /> {/* Render the HomePage component */}
-    </div>
+    <Router>
+      <div className="App">
+        <Switch>
+          <Route path="/" exact component={HomePage} />
+          <Route path="/create-profile" component={CreateProfilePage} />
+        </Switch>
+      </div>
+    </Router>
   );
 }
 

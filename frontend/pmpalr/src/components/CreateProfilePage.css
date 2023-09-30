@@ -1,0 +1,55 @@
+/* Styles for the CreateProfilePage component */
+.create-profile-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.create-profile-page h2 {
+  font-family: 'Righteous', cursive;
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.create-profile-page label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.create-profile-page input {
+  width: calc(100% - 20px);
+  padding: 10px;
+  border: 2px solid black;
+  border-radius: 10px;
+}
+
+.create-profile-page button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  border: 2px solid black;
+  background-color: blue;
+  color: white;
+  cursor: pointer;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+.create-profile-page button:hover {
+  background-color: green;
+}
+
+.create-profile-page label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.create-profile-page input {
+  width: calc(100% - 20px);
+}
+
+.create-profile-page button {
+  margin-top: 20px;
+  align-self: flex-end;
+}

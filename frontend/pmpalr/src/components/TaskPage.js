@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FaEdit, FaTrash } from 'react-icons/fa';
+import ConfirmDeleteDialog from './ConfirmDeleteDialog';
 import './TaskPage.css';
 import TaskEditForm from './TaskEditForm';
 
@@ -13,8 +14,9 @@ const TaskPage = () => {
   const [taskData, setTaskData] = useState({ title: '', description: '', dueDate: '', status: 'Open' });
   const [showCreateTaskFields, setShowCreateTaskFields] = useState(false);
   const [editingTaskId, setEditingTaskId] = useState(null);
+  const [deleteTaskId, setDeleteTaskId] = useState(null);
 
-  // Add a test task on component mount for demonstration
+  // Added a test task on component mount for testing purposes
   useEffect(() => {
     const testTask = {
       id: 'test-task-id',
@@ -51,19 +53,17 @@ const TaskPage = () => {
   };
 
   const handleTaskDelete = (taskId) => {
-    setTasks(tasks.filter((task) => task.id !== taskId));
+    setDeleteTaskId(taskId);
   };
 
-  // const handleTaskStatusUpdate = (taskId, newStatus) => {
-  //   setTasks(tasks.map((task) => (task.id === taskId ? { ...task, status: newStatus } : task)));
-  // };
+  const handleConfirmDelete = () => {
+    setTasks(tasks.filter((task) => task.id !== deleteTaskId));
+    setDeleteTaskId(null);
+  };
 
-  // const toggleDescription = (taskId) => {
-  //   const descriptionElement = document.getElementById(`task-description-${taskId}`);
-  //   if (descriptionElement) {
-  //     descriptionElement.style.display = descriptionElement.style.display === 'none' ? 'block' : 'none';
-  //   }
-  // };
+  const handleCancelDelete = () => {
+    setDeleteTaskId(null);
+  };
 
   return (
     <div className="task-page">
@@ -144,6 +144,14 @@ const TaskPage = () => {
             </div>
           </div>
         ))}
+
+        {/* Display ConfirmDeleteDialog if deleteTaskId is set */}
+        {deleteTaskId && (
+          <ConfirmDeleteDialog
+            onCancel={handleCancelDelete}
+            onConfirm={handleConfirmDelete}
+          />
+        )}
 
         {/* Display TaskEditForm for the selected task being edited */}
         {editingTaskId && (

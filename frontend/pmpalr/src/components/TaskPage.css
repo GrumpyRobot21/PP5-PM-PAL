@@ -1,0 +1,188 @@
+.task-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+  font-family: 'Righteous', cursive;
+}
+
+.styled-title {
+  font-family: 'Luckiest Guy', cursive;
+  font-size: 3em;
+  margin: 0;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-weight: normal;
+}
+
+.task-form input,
+.task-form textarea,
+.task-form button {
+  width: calc(100% - 20px);
+  padding: 10px;
+  border: 2px solid black;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.task-list-headings {
+  display: flex;
+  align-items: center;
+  font-size: 1.4em;
+  font-weight: bold;
+  border-bottom: 2px solid black;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.task-list-headings div {
+  flex: 1;
+  text-align: center;
+}
+
+.task-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.task-list-item .task-info {
+  flex: 1;
+  text-align: center;
+  font-size: 1em;
+}
+
+.task-list-item h3 {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.task-description {
+  display: none;
+}
+
+.task-actions {
+  display: flex;
+  align-items: center;
+}
+
+.task-actions button {
+  margin-left: 5px;
+}
+
+.task-search {
+  display: flex;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.task-search .search-input {
+  flex: 1;
+  padding: 8px;
+  border: 2px solid black;
+  border-radius: 10px;
+  margin-right: 10px;
+  font-size: 0.8em;
+}
+
+.task-search .search-button {
+  margin-left: 10px;
+  padding: 10px 20px;
+  border: 2px solid black;
+  background-color: blue;
+  color: white;
+  cursor: pointer;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 0.65em;
+}
+
+.task-search .search-button:hover {
+  background-color: green;
+}
+
+.action-icon {
+  margin-left: 5px;
+  cursor: pointer;
+  font-size: x-large;
+  color: blue;
+}
+
+.task-container {
+  border: 2px solid black;
+  border-radius: 15px;
+  padding: 20px;
+  max-width: 600px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 20px;
+}
+
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.task-item .task-info {
+  flex: 1;
+  text-align: center;
+  font-size: 1em;
+}
+
+.task-item .task-actions {
+  display: flex;
+  align-items: center;
+}
+
+/* Existing styles */
+
+.create-task-button {
+  padding: 10px 20px;
+  border: 2px solid black;
+  background-color: blue;
+  color: white;
+  cursor: pointer;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 1em;
+  margin-bottom: 10px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 8px;
+  margin-right: 10px;
+  border: 2px solid black;
+  border-radius: 10px;
+  font-family: 'Righteous', cursive;
+}
+
+.search-button {
+  padding: 10px 15px;
+  font-family: 'Righteous', cursive;
+  border: 2px solid black;
+  background-color: blue;
+  color: white;
+  cursor: pointer;
+  border-radius: 10px;
+  font-weight: 800;
+  font-size: large;
+}
+
+.create-task-button:hover {
+  background-color: green;
+}
+
+.task-container {
+  text-align: center;
+}

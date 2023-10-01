@@ -23,7 +23,6 @@ const CreateProfilePage = () => {
     e.preventDefault();
     console.log('Form submitted:', formData);
 
-    // Navigate to the home page after form submission
     navigate('/');
   };
 
@@ -39,7 +38,6 @@ const CreateProfilePage = () => {
           <label htmlFor="name">Name:</label>
           <input type="text" id="name" name="name" onChange={handleChange} value={formData.name} />
 
-          {/* Adjusted the width for the telephone field */}
           <label htmlFor="telephone">Telephone Number:</label>
           <input type="text" id="telephone" name="telephone" onChange={handleChange} value={formData.telephone} />
 

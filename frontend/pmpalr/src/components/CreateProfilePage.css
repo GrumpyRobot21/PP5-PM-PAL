@@ -1,4 +1,3 @@
-/* Styles for the CreateProfilePage component */
 .create-profile-page {
   display: flex;
   flex-direction: column;
@@ -54,12 +53,10 @@
   background-color: green;
 }
 
-/* Align the "Save and Confirm" button */
 .create-profile-page .save-confirm-button {
   margin-top: 20px;
 }
 
-/* Apply button styling to the Home button */
 .create-profile-page .home-button {
   margin: 5px;
   padding: 10px 20px;

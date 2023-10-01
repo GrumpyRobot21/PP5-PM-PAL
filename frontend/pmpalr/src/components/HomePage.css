@@ -74,3 +74,35 @@
 .create-profile-button:hover {
   background-color: green;
 }
+
+.login-form label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.login-form input {
+  width: calc(100% - 22px);
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 2px solid black;
+  border-radius: 5px;
+}
+
+.login-form .submit-button {
+  padding: 10px 20px;
+  background-color: blue;
+  color: white;
+  border: 2px solid black;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.2em;
+  font-family: 'Righteous', cursive;
+  text-decoration: none;
+  display: inline-block;
+  min-height: 50px;
+}
+
+.login-form .submit-button:hover {
+  background-color: green;
+}

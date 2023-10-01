@@ -1,12 +1,21 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './HomePage.css';
 
 const HomePage = () => {
   const [isLoginFormVisible, setIsLoginFormVisible] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
 
   const toggleLoginForm = () => {
     setIsLoginFormVisible((prev) => !prev);
+  };
+
+  const handleLogin = () => {
+    // Simulate a successful login
+    setIsLoggedIn(true);
+    navigate('/tasks');
   };
 
   return (
@@ -24,9 +33,9 @@ const HomePage = () => {
       </div>
       <div className="container title-container">
         <p className="welcome-text">
-          Welcome to "PM-PAL," the app to meet all of your task management and organizational needs.
-          Please create a profile. Once this is completed, you will be able to log in and start fully realizing
-          that organized life you've been waiting for!
+          Welcome to "PM-PAL," the app to meet all of your task management and organisational needs.
+          Please create a profile. Once completed, you will be able to log in and start fully realising
+          the organised life you've been waiting for!
         </p>
       </div>
 
@@ -35,7 +44,7 @@ const HomePage = () => {
         <div className="login-form-container">
           <form className="login-form">
             <label htmlFor="username">Username:</label>
-            <input type="text" id="username" name="username" />
+            <input type="text" id="username" name="username" className="login-input" />
 
             <label htmlFor="password">Password:</label>
             <input type="password" id="password" name="password" />
@@ -46,6 +55,9 @@ const HomePage = () => {
           </form>
         </div>
       )}
+
+      {/* Redirect to TaskPage if isLoggedIn is true */}
+      {isLoggedIn && navigate('/tasks')}
     </div>
   );
 };

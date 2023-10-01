@@ -1,0 +1,66 @@
+body,
+input,
+textarea,
+select,
+button {
+  font-family: 'Righteous', cursive;
+}
+
+.task-input {
+  width: calc(100% - 20px);
+  padding: 10px;
+  border: 2px solid black;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.status-dropdown {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.status-label {
+  margin-right: 10px;
+}
+
+.status-select {
+  padding: 10px;
+  border: 2px solid black;
+  border-radius: 10px;
+}
+
+.task-button {
+  padding: 10px 20px;
+  border: 2px solid black;
+  background-color: blue;
+  color: white;
+  cursor: pointer;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 1em;
+  margin-right: 10px;
+  font-family: 'Righteous', cursive;
+}
+
+.task-button:last-child {
+  margin-right: 0;
+}
+
+.task-button:hover {
+  background-color: green;
+}
+
+/* Add styles for the update and cancel buttons */
+.update-cancel-buttons {
+  display: flex;
+}
+
+.update-cancel-buttons button {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.update-cancel-buttons button:last-child {
+  margin-right: 0;
+}

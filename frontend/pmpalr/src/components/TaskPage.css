@@ -64,11 +64,25 @@
 
 .task-description {
   display: none;
+  position: relative;
 }
 
 .task-actions {
   display: flex;
   align-items: center;
+}
+
+.task-actions .fa-edit:hover::after {
+  content: "Edit task";
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: black;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 12px;
 }
 
 .task-actions button {
@@ -185,4 +199,29 @@
 
 .task-container {
   text-align: center;
+}
+
+.top-right-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+  /* Add margin to separate from the task container */
+}
+
+.edit-profile-button,
+.logout-button {
+  padding: 10px 20px;
+  margin-left: 10px;
+  border: 2px solid black;
+  background-color: blue;
+  color: white;
+  cursor: pointer;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 1em;
+}
+
+.edit-profile-button:hover,
+.logout-button:hover {
+  background-color: green;
 }

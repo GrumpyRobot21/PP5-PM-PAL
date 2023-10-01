@@ -16,6 +16,7 @@ const TaskPage = () => {
   const [editingTaskId, setEditingTaskId] = useState(null);
   const [deleteTaskId, setDeleteTaskId] = useState(null);
 
+
   // Added a test task on component mount for testing purposes
   useEffect(() => {
     const testTask = {
@@ -76,7 +77,7 @@ const TaskPage = () => {
 
       <div className="task-container">
         <button
-          className="create-task-button"
+          className="confirm-task-button"
           onClick={() => setShowCreateTaskFields((prev) => !prev)}
         >
           Create Task
@@ -103,7 +104,19 @@ const TaskPage = () => {
               value={taskData.dueDate}
               onChange={handleChange}
             />
-            <button type="submit">Create Task</button>
+
+            {/* Status dropdown */}
+            <div className="status-dropdown">
+              <label htmlFor="status">Status:</label>
+              <select name="status" id="status" value={taskData.status} onChange={handleChange}>
+                <option value="Open">Open</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+                <option value="Expired">Expired</option>
+              </select>
+            </div>
+
+            <button type="submit" className='confirm-task-button'>Confirm Task</button>
           </form>
         )}
 

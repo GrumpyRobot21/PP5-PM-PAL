@@ -3,6 +3,7 @@ import { FaEdit, FaTrash } from 'react-icons/fa';
 import ConfirmDeleteDialog from './ConfirmDeleteDialog';
 import './TaskPage.css';
 import TaskEditForm from './TaskEditForm';
+import TaskDetails from './TaskDetails';
 
 const formatDate = (date) => {
   const options = { day: 'numeric', month: 'numeric', year: 'numeric' };
@@ -15,6 +16,7 @@ const TaskPage = () => {
   const [showCreateTaskFields, setShowCreateTaskFields] = useState(false);
   const [editingTaskId, setEditingTaskId] = useState(null);
   const [deleteTaskId, setDeleteTaskId] = useState(null);
+  const [selectedTask, setSelectedTask] = useState(null);
 
 
   // Added a test task on component mount for testing purposes
@@ -28,6 +30,12 @@ const TaskPage = () => {
     };
     setTasks([testTask]);
   }, []);
+
+  const handleTaskClick = (task) => {
+    setSelectedTask((prevSelectedTask) => {
+      return prevSelectedTask === task ? null : task;
+    });
+  };
 
   const statusOptions = ['Open', 'In Progress', 'Completed', 'Expired'];
 
@@ -140,7 +148,7 @@ const TaskPage = () => {
 
         {/* Task List */}
         {tasks.map((task) => (
-          <div key={task.id} className="task-item">
+          <div key={task.id} className="task-item" onClick={() => handleTaskClick(task)}>
             {/* Title */}
             <div className="task-info">{task.title}</div>
 
@@ -174,6 +182,8 @@ const TaskPage = () => {
             onCloseEdit={() => setEditingTaskId(null)}
           />
         )}
+        {/* Display TaskDetails for the selected task */}
+        <TaskDetails task={selectedTask} />
       </div>
     </div>
   );

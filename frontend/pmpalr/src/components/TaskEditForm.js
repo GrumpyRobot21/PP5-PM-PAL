@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { FaTrash } from 'react-icons/fa';
 import './TaskEditForm.css';
 
 const TaskEditForm = ({ task, onUpdateTask, onCloseEdit }) => {
@@ -18,6 +19,10 @@ const TaskEditForm = ({ task, onUpdateTask, onCloseEdit }) => {
     e.preventDefault();
     onUpdateTask(editedTask);
     onCloseEdit();
+  };
+
+  const handleDeleteFile = () => {
+    setEditedTask({ ...editedTask, file: null });
   };
 
   return (
@@ -55,9 +60,20 @@ const TaskEditForm = ({ task, onUpdateTask, onCloseEdit }) => {
         </select>
       </div>
 
+      {editedTask.file && (
+        <div className="file-info">
+          <a href={URL.createObjectURL(editedTask.file)} target="_blank" rel="noopener noreferrer">
+            {editedTask.file.name}
+          </a>
+          <span className="delete-file-button" onClick={handleDeleteFile}>
+            <FaTrash className="trash-icon" />
+          </span>
+        </div>
+      )}
+
       <input type="file" name="file" onChange={handleFileChange} />
 
-      {/* Updated styling for the buttons */}
+      {/* Updated styling for buttons */}
       <div className="update-cancel-buttons">
         <button type="submit" className="task-button">Update Task</button>
         <button onClick={onCloseEdit} className="task-button">Cancel</button>

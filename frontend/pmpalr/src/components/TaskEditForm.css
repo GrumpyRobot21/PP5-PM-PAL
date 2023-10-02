@@ -64,3 +64,22 @@ button {
 .update-cancel-buttons button:last-child {
   margin-right: 0;
 }
+
+.file-info {
+  display: flex;
+  align-items: center;
+}
+
+.delete-file-button {
+  color: blue;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.delete-file-button:hover {
+  color: green;
+}
+
+.trash-icon {
+  margin-right: 5px;
+}

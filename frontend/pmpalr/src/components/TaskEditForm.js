@@ -1,7 +1,5 @@
-// TaskEditForm.js
-
 import React, { useState } from 'react';
-import './TaskEditForm.css';  // Import the CSS file for styling
+import './TaskEditForm.css';
 
 const TaskEditForm = ({ task, onUpdateTask, onCloseEdit }) => {
   const [editedTask, setEditedTask] = useState(task);
@@ -9,6 +7,11 @@ const TaskEditForm = ({ task, onUpdateTask, onCloseEdit }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setEditedTask({ ...editedTask, [name]: value });
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setEditedTask({ ...editedTask, file });
   };
 
   const handleSubmit = (e) => {
@@ -52,11 +55,14 @@ const TaskEditForm = ({ task, onUpdateTask, onCloseEdit }) => {
         </select>
       </div>
 
+      <input type="file" name="file" onChange={handleFileChange} />
+
       {/* Updated styling for the buttons */}
       <div className="update-cancel-buttons">
         <button type="submit" className="task-button">Update Task</button>
         <button onClick={onCloseEdit} className="task-button">Cancel</button>
       </div>
+
     </form>
   );
 };

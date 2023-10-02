@@ -9,7 +9,6 @@ const TaskDetails = ({ task, onClose }) => {
       <p>Description: {task.description}</p>
       <p>Status: {task.status}</p>
       <p>Due Date: {task.dueDate}</p>
-      <button onClick={onClose}>Close</button>
     </div>
   );
 };

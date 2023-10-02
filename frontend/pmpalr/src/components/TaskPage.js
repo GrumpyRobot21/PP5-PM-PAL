@@ -17,7 +17,10 @@ const TaskPage = () => {
   const [editingTaskId, setEditingTaskId] = useState(null);
   const [deleteTaskId, setDeleteTaskId] = useState(null);
   const [selectedTask, setSelectedTask] = useState(null);
-
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setTaskData({ ...taskData, file });
+  };
 
   // Added a test task on component mount for testing purposes
   useEffect(() => {
@@ -123,6 +126,9 @@ const TaskPage = () => {
                 <option value="Expired">Expired</option>
               </select>
             </div>
+
+            {/* File input for uploading files */}
+            <input type="file" onChange={handleFileChange} />
 
             <button type="submit" className='confirm-task-button'>Confirm Task</button>
           </form>

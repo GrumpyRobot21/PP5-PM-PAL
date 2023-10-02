@@ -19,6 +19,11 @@ const TaskPage = () => {
   const [editingTaskId, setEditingTaskId] = useState(null);
   const [deleteTaskId, setDeleteTaskId] = useState(null);
   const [selectedTask, setSelectedTask] = useState(null);
+  const handleLogout = () => {
+    // Perform any necessary actions to clear user credentials or authentication state
+    // For simplicity, we're just navigating back to the homepage
+    navigate('/');
+  };
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     setTaskData({ ...taskData, file });
@@ -26,7 +31,7 @@ const TaskPage = () => {
 
 
   const handleEditProfile = () => {
-    navigate('/profile');
+    navigate.push('/profile');
   };
 
   // Added a test task on component mount for testing purposes
@@ -92,7 +97,7 @@ const TaskPage = () => {
         <button className="edit-profile-button" onClick={handleEditProfile}>
           Edit Profile
         </button>
-        <button className="logout-button">Logout</button>
+        <button className="logout-button" onClick={handleLogout}>Logout</button>
       </div>
 
       <div className="task-container">

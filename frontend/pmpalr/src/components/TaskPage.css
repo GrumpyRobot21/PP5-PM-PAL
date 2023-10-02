@@ -273,3 +273,10 @@
   border-radius: 10px;
   font-family: 'Righteous', cursive;
 }
+
+.instruction-text {
+  color: black;
+  font-weight: bold;
+  font-family: 'Righteous', sans-serif;
+  margin-bottom: 10px;
+}

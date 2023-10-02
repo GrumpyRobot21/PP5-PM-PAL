@@ -1,0 +1,79 @@
+/* ProfilePage.css */
+
+.profile-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Center items horizontally */
+  padding: 40px;
+  font-family: 'Righteous', cursive;
+}
+
+.central-content {
+  border: 2px solid black;
+  border-radius: 15px;
+  padding: 20px;
+  max-width: 600px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 20px;
+  background-color: white;
+  display: flex;
+  /* Use flexbox to center child items */
+  flex-direction: column;
+  /* Stack child items vertically */
+  align-items: center;
+  /* Center child items horizontally */
+}
+
+.styled-title {
+  font-family: 'Luckiest Guy', cursive;
+  font-size: 3em;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  color: black;
+}
+
+.title {
+  font-family: 'Righteous', cursive;
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  /* Make the form fill the container */
+}
+
+.profile-input {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+  width: calc(100% - 20px);
+  /* Adjusted width */
+}
+
+.confirm-profile-button {
+  padding: 10px;
+  border: 2px solid black;
+  background-color: blue;
+  color: white;
+  cursor: pointer;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 1.2em;
+  font-family: 'Righteous', cursive;
+  text-decoration: none;
+  min-width: 150px;
+  /* Adjusted width */
+  align-self: center;
+  /* Center the button within the container */
+}
+
+.confirm-profile-button:hover {
+  background-color: green;
+}

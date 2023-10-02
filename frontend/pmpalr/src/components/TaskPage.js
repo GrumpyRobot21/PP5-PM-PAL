@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FaEdit, FaTrash } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 import ConfirmDeleteDialog from './ConfirmDeleteDialog';
 import './TaskPage.css';
 import TaskEditForm from './TaskEditForm';
@@ -11,6 +12,7 @@ const formatDate = (date) => {
 };
 
 const TaskPage = () => {
+  const navigate = useNavigate();
   const [tasks, setTasks] = useState([]);
   const [taskData, setTaskData] = useState({ title: '', description: '', dueDate: '', status: 'Open' });
   const [showCreateTaskFields, setShowCreateTaskFields] = useState(false);
@@ -20,6 +22,11 @@ const TaskPage = () => {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     setTaskData({ ...taskData, file });
+  };
+
+
+  const handleEditProfile = () => {
+    navigate('/profile');
   };
 
   // Added a test task on component mount for testing purposes
@@ -82,7 +89,9 @@ const TaskPage = () => {
       <h1 className="pm-pal-title styled-title">PM-PAL</h1>
 
       <div className="top-right-buttons">
-        <button className="edit-profile-button">Edit Profile</button>
+        <button className="edit-profile-button" onClick={handleEditProfile}>
+          Edit Profile
+        </button>
         <button className="logout-button">Logout</button>
       </div>
 
@@ -150,6 +159,10 @@ const TaskPage = () => {
             className="search-input"
           />
           <button className="search-button">Search Tasks</button>
+        </div>
+
+        <div className="instruction-text">
+          Click on a task to view/hide details.
         </div>
 
         {/* Task List */}

@@ -1,3 +1,8 @@
+from django.contrib.auth.models import User
+from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
+from rest_framework.authtoken.models import Token
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import viewsets, status
@@ -9,6 +14,27 @@ from django.http import JsonResponse
 
 def index(request):
         return JsonResponse({'message': 'Welcome to the PM-PAL API'})
+    
+@api_view(['POST'])
+@permission_classes([AllowAny]) 
+def register_user(request):
+    username = request.data.get('username')
+    password = request.data.get('password')
+
+    if not username or not password:
+        return Response({'error': 'Both username and password are required.'}, status=status.HTTP_400_BAD_REQUEST)
+
+    try:
+        user = User.objects.create_user(username=username, password=password)
+        return Response({'message': 'User registered successfully.'}, status=status.HTTP_201_CREATED)
+    except Exception as e:
+        return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+class CustomObtainAuthToken(ObtainAuthToken):
+    def post(self, request, *args, **kwargs):
+        response = super().post(request, *args, **kwargs)
+        token = Token.objects.get(key=response.data['token'])
+        return Response({'token': token.key, 'user_id': token.user_id})
 
 class TaskViewSet(viewsets.ModelViewSet):
     serializer_class = TaskSerializer

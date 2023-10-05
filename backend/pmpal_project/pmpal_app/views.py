@@ -15,20 +15,29 @@ from django.http import JsonResponse
 def index(request):
         return JsonResponse({'message': 'Welcome to the PM-PAL API'})
     
-@api_view(['POST'])
-@permission_classes([AllowAny]) 
+@api_view(['POST', 'OPTIONS'])
+@permission_classes([AllowAny])
 def register_user(request):
-    username = request.data.get('username')
-    password = request.data.get('password')
+    if request.method == 'OPTIONS':
+        # Handle OPTIONS request, specify allowed methods and headers
+        response = Response()
+        response['Access-Control-Allow-Methods'] = 'POST'
+        response['Access-Control-Allow-Headers'] = 'Content-Type'
+        return response
 
-    if not username or not password:
-        return Response({'error': 'Both username and password are required.'}, status=status.HTTP_400_BAD_REQUEST)
+    if request.method == 'POST':
+        # Handle POST request for user registration
+        username = request.data.get('username')
+        password = request.data.get('password')
 
-    try:
-        user = User.objects.create_user(username=username, password=password)
-        return Response({'message': 'User registered successfully.'}, status=status.HTTP_201_CREATED)
-    except Exception as e:
-        return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        if not username or not password:
+            return Response({'error': 'Both username and password are required.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            user = User.objects.create_user(username=username, password=password)
+            return Response({'message': 'User registered successfully.'}, status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 class CustomObtainAuthToken(ObtainAuthToken):
     def post(self, request, *args, **kwargs):

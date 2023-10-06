@@ -12,5 +12,5 @@ urlpatterns = [
     path('', include(router.urls)),
     path('api/login/', CustomObtainAuthToken.as_view(), name='login'),
     path('api/register/', register_user, name='register-user'),
-    
+    path('update_profile/', views.update_profile, name='update_profile'),
 ]

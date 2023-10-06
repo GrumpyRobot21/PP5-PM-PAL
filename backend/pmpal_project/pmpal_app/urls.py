@@ -2,6 +2,7 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import TaskViewSet, DocumentViewSet, CustomObtainAuthToken, register_user
 from django.contrib import admin
+from . import views
 
 router = DefaultRouter()
 router.register(r'tasks', TaskViewSet)

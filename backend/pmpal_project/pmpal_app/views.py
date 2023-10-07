@@ -7,15 +7,12 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import viewsets, status
 from rest_framework.response import Response
-from rest_framework.authtoken.models import Token
 from .models import Task, Document
-from .serializers import TaskSerializer, DocumentSerializer
+from .serializers import TaskSerializer, DocumentSerializer, UserProfileSerializer  
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
-from rest_framework import status
+from rest_framework.generics import RetrieveUpdateAPIView
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 
 def index(request):
@@ -109,18 +106,35 @@ def obtain_auth_token(request):
     token, created = Token.objects.get_or_create(user=user)
     return Response({'token': token.key}, status=status.HTTP_200_OK)
 
+class UserProfileUpdateView(RetrieveUpdateAPIView):
+    serializer_class = UserProfileSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+    def get_object(self):
+       return self.request.user.profile
+
+    def get(self, request, *args, **kwargs):
+       instance = self.get_object()
+       serializer = self.get_serializer(instance)
+       return Response(serializer.data)
+
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
 def update_profile(request):
     user = request.user
-
-    # Retrieve the updated data from the request
     updated_data = request.data
 
     # Update user profile data based on the request data
-    # Example: Updating name and telephone
     user.first_name = updated_data.get('name', user.first_name)
     user.last_name = updated_data.get('telephone', user.last_name)
+    user.email = updated_data.get('email', user.email)
+    user.username = updated_data.get('username', user.username)
+
+    # Update the password if provided
+    new_password = updated_data.get('password')
+    if new_password:
+        user.set_password(new_password)
+
     user.save()
 
     return Response({'message': 'Profile updated successfully.'}, status=status.HTTP_200_OK)

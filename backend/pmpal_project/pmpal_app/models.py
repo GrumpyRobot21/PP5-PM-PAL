@@ -51,11 +51,11 @@ class Task(models.Model):
     details = models.TextField()
     completion_date = models.DateField()
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='open')
-    users = models.ManyToManyField(get_user_model(), related_name='tasks')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.title  
-      
+        return self.title
+    
 class Document(models.Model):
     task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='documents')
     document_file = models.FileField(upload_to='documents/')

@@ -5,7 +5,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.authtoken.models import Token
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
-from rest_framework import viewsets, status
+from rest_framework import viewsets, status, generics
 from rest_framework.response import Response
 from .models import Task, Document
 from .serializers import TaskSerializer, DocumentSerializer, UserProfileSerializer  
@@ -117,6 +117,17 @@ class UserProfileUpdateView(RetrieveUpdateAPIView):
        instance = self.get_object()
        serializer = self.get_serializer(instance)
        return Response(serializer.data)
+   
+class TaskListCreateView(generics.ListCreateAPIView):
+    queryset = Task.objects.all()
+    serializer_class = TaskSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Task.objects.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])

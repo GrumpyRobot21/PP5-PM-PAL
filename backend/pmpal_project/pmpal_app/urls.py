@@ -4,6 +4,7 @@ from .views import TaskViewSet, DocumentViewSet, CustomObtainAuthToken, register
 from django.contrib import admin
 from . import views
 from .views import UserProfileUpdateView
+from .views import TaskListCreateView
 
 router = DefaultRouter()
 router.register(r'tasks', TaskViewSet)
@@ -17,4 +18,5 @@ urlpatterns = [
     path('api/update_profile/', views.update_profile, name='update_profile'),
     path('api/users/<int:user_id>/', UserProfileUpdateView.as_view(), name='user-profile'),
     path('user-profile/', UserProfileUpdateView.as_view(), name='user-profile'),  
+    path('api/tasks/', TaskListCreateView.as_view(), name='task-list-create'),
 ]

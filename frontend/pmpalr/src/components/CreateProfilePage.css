@@ -93,3 +93,15 @@
   font-family: 'Righteous', cursive;
   font-size: 2em;
 }
+
+.error-message {
+  font-family: 'Righteous', sans-serif;
+  color: red;
+  font-size: 0.8em;
+}
+
+.server-message {
+  font-family: 'Righteous', sans-serif;
+  color: red;
+  font-size: 0.8em;
+}

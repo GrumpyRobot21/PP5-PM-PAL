@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import ConfirmDeleteDialog from './ConfirmDeleteDialog';
 import './TaskPage.css';
 import TaskEditForm from './TaskEditForm';
 import TaskDetails from './TaskDetails';
+import ProfilePage from './ProfilePage';
 
 const formatDate = (date) => {
   const options = { day: 'numeric', month: 'numeric', year: 'numeric' };
@@ -21,7 +23,7 @@ const TaskPage = () => {
   const [selectedTask, setSelectedTask] = useState(null);
   const handleLogout = () => {
     // Perform any necessary actions to clear user credentials or authentication state
-    // For simplicity, we're just navigating back to the homepage
+    // For simplicity just navigating back to the homepage
     navigate('/');
   };
   const handleFileChange = (e) => {
@@ -29,22 +31,22 @@ const TaskPage = () => {
     setTaskData({ ...taskData, file });
   };
 
-
   const handleEditProfile = () => {
-    navigate.push('/profile');
+    // Navigate to the profile edit page
+    navigate('/profile');
   };
 
   // Added a test task on component mount for testing purposes
-  useEffect(() => {
-    const testTask = {
-      id: 'test-task-id',
-      title: 'Test Task',
-      description: 'Lorem Ipsum text',
-      dueDate: '2023-10-05',
-      status: 'Open'
-    };
-    setTasks([testTask]);
-  }, []);
+  // useEffect(() => {
+  //   const testTask = {
+  //     id: 'test-task-id',
+  //     title: 'Test Task',
+  //     description: 'Lorem Ipsum text',
+  //     dueDate: '2023-10-05',
+  //     status: 'Open'
+  //   };
+  //   setTasks([testTask]);
+  // }, []);
 
   const handleTaskClick = (task) => {
     setSelectedTask((prevSelectedTask) => {

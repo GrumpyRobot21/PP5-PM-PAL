@@ -15,6 +15,7 @@ function App() {
           <Route path="/create-profile" element={<CreateProfilePage />} />
           <Route path="/tasks" element={<TaskPage />} />
           <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/login" element={<HomePage />} /> {/* Add this line */}
         </Routes>
       </div>
     </Router>
@@ -22,3 +23,4 @@ function App() {
 }
 
 export default App;
+

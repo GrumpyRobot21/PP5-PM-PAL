@@ -1,6 +1,5 @@
 from rest_framework import serializers
-from .models import Task, Document, UserProfile
-from django.contrib.auth.models import User
+from .models import Task, Document, UserProfile, CustomUser
 
 class TaskSerializer(serializers.ModelSerializer):
     class Meta:
@@ -28,3 +27,8 @@ class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
         fields = ['username', 'email', 'name', 'telephone']
+        
+class CustomUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ('id', 'username', 'email','telephone') 

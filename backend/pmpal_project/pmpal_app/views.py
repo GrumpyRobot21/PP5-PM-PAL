@@ -15,8 +15,18 @@ from django.contrib.auth.decorators import login_required
 from rest_framework.generics import RetrieveUpdateAPIView
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from .models import UserProfile
-from .serializers import UserProfileSerializer
+from .serializers import UserProfileSerializer, CustomUserSerializer
 from rest_framework import generics
+
+class CustomAuthToken(ObtainAuthToken):
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data, context={'request': request})
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data['user']
+        token = Token.objects.get_or_create(user=user)
+        return Response({'token': token.key, 'user': CustomUserSerializer(user).data})
+
+custom_auth_token = CustomAuthToken.as_view()
 
 def index(request):
     return JsonResponse({'message': 'Welcome to the PM-PAL API'})
@@ -56,9 +66,8 @@ class CustomObtainAuthToken(ObtainAuthToken):
         print('userdata', userdata)
         print('userdata.email', userdata[0].email)
         if userdata.exists():
-            # token = Token.objects.get(key=response.data['token'])
-            return Response({'token': userdata[0].email, 'user_id': userdata[0].email})
-
+            return Response({'token': 'token', 'user_id': userdata[0].email})
+        
 class TaskViewSet(viewsets.ModelViewSet):
     serializer_class = TaskSerializer
     authentication_classes = [TokenAuthentication]
@@ -100,8 +109,8 @@ class UserProfileUpdateView(RetrieveUpdateAPIView):
        serializer = self.get_serializer(instance)
        return Response(serializer.data)
 
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
+@api_view(['GET', 'POST'])
+@permission_classes([AllowAny])
 def get_user_profile(request, user_id):
     if request.user.id != user_id:
         return Response({'error': 'Unauthorized access.'}, status=status.HTTP_403_FORBIDDEN)

@@ -11,10 +11,20 @@ class DocumentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Document
         fields = ['id', 'document_file']
-        
+
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
-        fields = ['name', 'telephone', 'email', 'username']
-        read_only_fields = ['name']
+        fields = ['name', 'telephone', 'user', 'email']
 
+    user = serializers.SerializerMethodField()
+
+    def get_user(self, obj):
+        return {
+            'username': obj.user.username,
+            'email': obj.user.email
+        }
+
+    class Meta:
+        model = UserProfile
+        fields = ['username', 'email', 'name', 'telephone']

@@ -6,19 +6,19 @@ from django.contrib.auth.admin import UserAdmin
 
 class CustomUserAdmin(UserAdmin):
     model = CustomUser
-    list_display = ('username', 'email', 'name', 'is_staff', 'is_active')
+    list_display = ('username', 'email', 'name', 'phone', 'password', 'is_staff', 'is_active')
     fieldsets = (
-        (None, {'fields': ('username', 'email', 'password')}),
+        (None, {'fields': ('username', 'email', 'phone', 'password')}),
         ('Personal info', {'fields': ('name',)}),
         ('Permissions', {'fields': ('is_staff', 'is_active')}),
     )
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('username', 'email', 'password1', 'password2', 'name', 'is_staff', 'is_active')}
+            'fields': ('username', 'email', 'phone', 'password1', 'password2', 'name', 'is_staff', 'is_active')}
         ),
     )
-    search_fields = ('username', 'email', 'name')
+    search_fields = ('username', 'email', 'name', 'phone')
     ordering = ('username',)
 
     # Customize filter_horizontal for the required fields
@@ -29,7 +29,7 @@ class CustomUserAdmin(UserAdmin):
     list_filter = ()
     filter_horizontal = ()
     fieldsets = (
-        (None, {'fields': ('username', 'email', 'password')}),
+        (None, {'fields': ('username', 'email', 'password', 'phone')}),
         ('Personal info', {'fields': ('name',)}),
         ('Important dates', {'fields': ('last_login',)}),
     )

@@ -1,32 +1,34 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
-from django.contrib.auth import get_user_model
-from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
+# CustomUserManager for handling the creation of users and superusers
 class CustomUserManager(BaseUserManager):
-    def create_user(self, username, email, password=None, **extra_fields):
+    def create_user(self, phone, username, email, password=None):
         if not username:
             raise ValueError("The Username field must be set")
         email = self.normalize_email(email)
-        user = self.model(username=username, email=email, **extra_fields)
+        user = self.model(username=username, email=email, phone=phone)
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, username, email, password=None, **extra_fields):
+    def create_superuser(self, username, email, password=None):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
-
         if extra_fields.get('is_staff') is not True:
             raise ValueError("Superuser must have is_staff=True.")
         if extra_fields.get('is_superuser') is not True:
             raise ValueError("Superuser must have is_superuser=True.")
+        return self.create_user(username, email, password)
 
-        return self.create_user(username, email, password, **extra_fields)
-
+# CustomUser model definition
 class CustomUser(AbstractBaseUser):
     username = models.CharField(max_length=30, unique=True)
     email = models.EmailField(unique=True)
+    phone = models.CharField(max_length=15, default=False)
+    password = models.CharField(max_length=15, default=False)
     name = models.CharField(max_length=100)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
@@ -39,7 +41,8 @@ class CustomUser(AbstractBaseUser):
 
     def __str__(self):
         return self.username
-      
+    
+# Task model definition
 class Task(models.Model):
     STATUS_CHOICES = [
         ('open', 'Open'),
@@ -51,24 +54,32 @@ class Task(models.Model):
     details = models.TextField()
     completion_date = models.DateField()
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='open')
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.title
-    
+
+# Document model definition
 class Document(models.Model):
     task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='documents')
     document_file = models.FileField(upload_to='documents/')
 
     def __str__(self):
-        return f"Document for {self.task.title}"          
+        return f"Document for {self.task.title}"
 
+# UserProfile model definition
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     telephone = models.CharField(max_length=15)
-    email = models.EmailField(max_length=255)
-    username = models.CharField(max_length=30)
 
     def __str__(self):
         return f'{self.user.username} Profile'
+
+# Signal to create/update UserProfile when CustomUser is saved
+@receiver(post_save, sender=CustomUser)
+def create_or_update_user_profile(sender, instance, created, **kwargs):
+    if created:
+        UserProfile.objects.create(user=instance)
+    else:
+        instance.userprofile.save()

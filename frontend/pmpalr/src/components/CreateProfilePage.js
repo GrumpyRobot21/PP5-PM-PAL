@@ -44,7 +44,7 @@ const CreateProfilePage = () => {
     } else {
       try {
         // Make sure to replace this URL with your production API endpoint
-        const response = await axios.post('https://your-api-domain.com/api/register/', formData);
+        const response = await axios.post('http://127.0.0.1:8000/api/register/', formData);
 
         // Set a success message and navigate to a different page if needed
         setServerMessage('Registration successful!');

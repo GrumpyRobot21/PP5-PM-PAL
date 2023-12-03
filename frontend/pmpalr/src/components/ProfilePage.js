@@ -46,10 +46,10 @@ const ProfilePage = () => {
         .then(response => {
           setFormData({
             ...formData,
-            name: response.data.name,
-            telephone: response.data.telephone,
-            email: response.data.email,
-            username: response.data.username,
+            name: response.data.user.name,
+            telephone: response.data.user.telephone,
+            email: response.data.user.email,
+            username: response.data.user.username,
           });
         })
         .catch(error => {

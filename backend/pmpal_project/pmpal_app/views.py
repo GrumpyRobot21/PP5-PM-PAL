@@ -1,5 +1,7 @@
+from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.hashers import check_password
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
@@ -9,7 +11,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import viewsets, status, generics
 from rest_framework.response import Response
 from .models import Task, Document, CustomUser
-from .serializers import TaskSerializer, DocumentSerializer, UserProfileSerializer 
+from .serializers import TaskSerializer, DocumentSerializer, UserProfileSerializer
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from rest_framework.generics import RetrieveUpdateAPIView
@@ -24,6 +26,7 @@ class CustomAuthToken(ObtainAuthToken):
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data['user']
         token = Token.objects.get_or_create(user=user)
+        print("This is custom new token:",token)
         return Response({'token': token.key, 'user': CustomUserSerializer(user).data})
 
 custom_auth_token = CustomAuthToken.as_view()
@@ -45,13 +48,18 @@ def register_user(request):
         password = request.data.get('password')
         telephone = request.data.get('telephone')
         email = request.data.get('email')
+        name = request.data.get('name')
         if not username or not password:
             return Response({'error': 'Both username and password are required.'}, status=status.HTTP_400_BAD_REQUEST)
 
         try:
-            # Use CustomUser.objects.create_user if you are using a custom user model
-            CustomUser(username=username, password=password, email=email, phone=telephone).save()
-            return Response({'message': 'User registered successfully.'}, status=status.HTTP_201_CREATED)
+            user = CustomUser(username=username, email=email, phone=telephone, name=name)
+            user.set_password(password)
+            user.save()
+            # Get or create a Token for the user
+            token, created = Token.objects.get_or_create(user=user)
+            print("this is the token which is created:",token.key)
+            return Response({'message': 'User registered successfully.','token':token.key}, status=status.HTTP_201_CREATED)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -60,14 +68,19 @@ class CustomObtainAuthToken(ObtainAuthToken):
         # response = super().post(request, *args, **kwargs)
         username = request.data.get('username')
         password = request.data.get('password').strip()
-        userdata = CustomUser.objects.filter(username=username, password=password) 
-        print('password', password)
-        print('username', username)
-        print('userdata', userdata)
-        print('userdata.email', userdata[0].email)
-        if userdata.exists():
-            return Response({'token': 'token', 'user_id': userdata[0].email})
-        
+        user = CustomUser.objects.filter(username=username).first()
+        print("user is ====>:",user)
+        if user and check_password(password, user.password):
+            token, created = Token.objects.get_or_create(user=user)
+            print('in suces',token)
+            print("status.HTTP_200_OK:",status.HTTP_200_OK)
+
+            return Response({'token': token.key, 'user_id': user.id}, status=status.HTTP_200_OK)
+
+        return Response({'error': 'Invalid username or password'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+
 class TaskViewSet(viewsets.ModelViewSet):
     serializer_class = TaskSerializer
     authentication_classes = [TokenAuthentication]
@@ -112,6 +125,9 @@ class UserProfileUpdateView(RetrieveUpdateAPIView):
 @api_view(['GET', 'POST'])
 @permission_classes([AllowAny])
 def get_user_profile(request, user_id):
+    print("inside get_user_profile function",user_id)
+    print("inside request.user.id",request.user.id)
+
     if request.user.id != user_id:
         return Response({'error': 'Unauthorized access.'}, status=status.HTTP_403_FORBIDDEN)
 

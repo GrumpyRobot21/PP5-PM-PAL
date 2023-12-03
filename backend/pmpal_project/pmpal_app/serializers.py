@@ -12,23 +12,21 @@ class DocumentSerializer(serializers.ModelSerializer):
         fields = ['id', 'document_file']
 
 class UserProfileSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = UserProfile
-        fields = ['name', 'telephone', 'user', 'email']
-
     user = serializers.SerializerMethodField()
 
     def get_user(self, obj):
         return {
             'username': obj.user.username,
-            'email': obj.user.email
+            'email': obj.user.email,
+            'telephone': obj.user.phone,
+            'name': obj.user.name,
         }
 
     class Meta:
         model = UserProfile
-        fields = ['username', 'email', 'name', 'telephone']
+        fields = ['name', 'telephone', 'user' ]
         
 class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ('id', 'username', 'email','telephone') 
+        fields = ( 'username', 'email','phone','password')

@@ -13,8 +13,8 @@ urlpatterns = [
     path('api/login/', CustomObtainAuthToken.as_view(), name='login'),
     path('api/register/', register_user, name='register-user'),
     path('api/update_profile/', update_profile, name='update_profile'),
-    path('api/user-profile', UserProfileUpdateView.as_view(), name='user-profile'), 
-    path('api/user-profile', get_user_profile, name='get_user_profile'),
+    # path('api/user-profile/<int:id>/', UserProfileUpdateView.as_view(), name='user-profile'),
+    path('api/user-profile/<int:user_id>/', get_user_profile, name='get_user_profile'),
     path('api/token/', custom_auth_token, name='custom_auth_token'),
 ]
 

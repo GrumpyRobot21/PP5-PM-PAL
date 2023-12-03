@@ -159,7 +159,8 @@ const ProfilePage = () => {
       return;
     }
 
-    const updateProfileEndpoint = `http://127.0.0.1:8000/api/users/${userId}/profile/`;
+    const updateProfileEndpoint = `http://127.0.0.1:8000/api/update_profile/`;
+    // const updateProfileEndpoint = `http://127.0.0.1:8000/api/users/${userId}/profile/`;
 
 
 

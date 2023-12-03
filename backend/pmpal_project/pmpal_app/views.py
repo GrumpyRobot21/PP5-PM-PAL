@@ -150,9 +150,10 @@ class TaskListCreateView(generics.ListCreateAPIView):
 def update_profile(request):
     user = request.user
     updated_data = request.data
-    user.first_name = updated_data.get('name', user.first_name)
-    user.last_name = updated_data.get('telephone', user.last_name)
+    user.name = updated_data.get('name', user.name)
+    user.phone = updated_data.get('telephone', user.phone)
     user.email = updated_data.get('email', user.email)
+    user.username = updated_data.get('username', user.username)
     new_password = updated_data.get('password')
     if new_password:
         user.set_password(new_password)

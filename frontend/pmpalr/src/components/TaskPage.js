@@ -16,7 +16,7 @@ const formatDate = (date) => {
 const TaskPage = () => {
   const navigate = useNavigate();
   const [tasks, setTasks] = useState([]);
-  const [taskData, setTaskData] = useState({ title: '', description: '', dueDate: '', status: 'Open' });
+  const [taskData, setTaskData] = useState({ title: '', details: '', completion_date: '', status: 'Open' });
   const [showCreateTaskFields, setShowCreateTaskFields] = useState(false);
   const [editingTaskId, setEditingTaskId] = useState(null);
   const [deleteTaskId, setDeleteTaskId] = useState(null);
@@ -35,18 +35,6 @@ const TaskPage = () => {
     // Navigate to the profile edit page
     navigate('/profile');
   };
-
-  // Added a test task on component mount for testing purposes
-  // useEffect(() => {
-  //   const testTask = {
-  //     id: 'test-task-id',
-  //     title: 'Test Task',
-  //     description: 'Lorem Ipsum text',
-  //     dueDate: '2023-10-05',
-  //     status: 'Open'
-  //   };
-  //   setTasks([testTask]);
-  // }, []);
 
   const handleTaskClick = (task) => {
     setSelectedTask((prevSelectedTask) => {
@@ -70,12 +58,38 @@ const TaskPage = () => {
     setEditingTaskId(null); // Stop editing after updating
   };
 
+
+
   const handleTaskSubmit = (e) => {
     e.preventDefault();
     const newTask = { ...taskData, id: Math.random().toString() };
     setTasks([...tasks, newTask]);
-    setTaskData({ title: '', description: '', dueDate: '', status: 'Open' });
+    setTaskData({ user: localStorage.getItem('userId'), title: '', details: '', completion_date: '', status: 'Open' });
     setShowCreateTaskFields(false); // Close the form after submission
+    const userId = localStorage.getItem('userId');
+    const token = localStorage.getItem('token');
+
+    if (!userId || !token) {
+      console.error('User ID or token is missing');
+      navigate('/login'); // Replace with your login route
+      return;
+    }
+    const createtaskEndpoint = `http://127.0.0.1:8000/api/create_task/`;
+
+    console.log('task data', taskData)
+    axios.post(createtaskEndpoint, taskData, {
+      headers: {
+        Authorization: `Token ${token}`
+      }
+    })
+      .then(response => {
+        console.log('Task created successfully:', response.data);
+        navigate('/tasks'); // Redirect or perform other actions post-update
+      })
+      .catch(error => {
+        console.error('Error updating profile:', error);
+        // Handle error
+      });
   };
 
   const handleTaskDelete = (taskId) => {
@@ -120,15 +134,15 @@ const TaskPage = () => {
               onChange={handleChange}
             />
             <textarea
-              name="description"
+              name="details"
               placeholder="Task Description"
-              value={taskData.description}
+              value={taskData.details}
               onChange={handleChange}
             />
             <input
               type="date"
-              name="dueDate"
-              value={taskData.dueDate}
+              name="completion_date"
+              value={taskData.completion_date}
               onChange={handleChange}
             />
 

@@ -4,7 +4,8 @@ from .models import Task, Document, UserProfile, CustomUser
 class TaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
-        fields = ['id', 'title', 'details', 'completion_date', 'status']
+        fields = ['user', 'title', 'details', 'completion_date', 'status']
+        
 
 class DocumentSerializer(serializers.ModelSerializer):
     class Meta:

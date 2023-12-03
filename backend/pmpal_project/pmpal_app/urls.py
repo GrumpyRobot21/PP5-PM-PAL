@@ -1,7 +1,7 @@
 from django.contrib import admin  # Import the admin module
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import TaskViewSet, DocumentViewSet, CustomObtainAuthToken, custom_auth_token, register_user, update_profile, get_user_profile, UserProfileUpdateView
+from .views import TaskViewSet, DocumentViewSet, CustomObtainAuthToken, taskcreation, custom_auth_token, register_user, update_profile, get_user_profile, UserProfileUpdateView
 
 router = DefaultRouter()
 router.register(r'tasks', TaskViewSet, basename='task')
@@ -16,5 +16,6 @@ urlpatterns = [
     # path('api/user-profile/<int:id>/', UserProfileUpdateView.as_view(), name='user-profile'),
     path('api/user-profile/<int:user_id>/', get_user_profile, name='get_user_profile'),
     path('api/token/', custom_auth_token, name='custom_auth_token'),
+    path('api/create_task/', taskcreation, name='taskcreation'),
 ]
 

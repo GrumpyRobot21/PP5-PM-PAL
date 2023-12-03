@@ -160,10 +160,7 @@ const ProfilePage = () => {
     }
 
     const updateProfileEndpoint = `http://127.0.0.1:8000/api/update_profile/`;
-    // const updateProfileEndpoint = `http://127.0.0.1:8000/api/users/${userId}/profile/`;
-
-
-
+   
     // Prepare the data for updating (excluding confirmPassword)
     const updateData = {
       name: formData.name,

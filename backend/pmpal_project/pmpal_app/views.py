@@ -1,6 +1,6 @@
-from django.contrib.auth import authenticate
-from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404
+# from django.contrib.auth import authenticate
+# from django.contrib.auth.models import User
+# from django.shortcuts import get_object_or_404
 from django.contrib.auth.hashers import check_password
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.decorators import api_view, permission_classes
@@ -10,14 +10,13 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import viewsets, status, generics
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from .models import Task, Document, CustomUser
-from .serializers import TaskSerializer, DocumentSerializer, UserProfileSerializer
+from .serializers import TaskSerializer, DocumentSerializer, UserProfileSerializer, CustomUserSerializer
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from rest_framework.generics import RetrieveUpdateAPIView
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from .models import UserProfile
-from .serializers import UserProfileSerializer, CustomUserSerializer
 from rest_framework import generics
 
 class CustomAuthToken(ObtainAuthToken):
@@ -163,3 +162,30 @@ def update_profile(request):
 class UserProfileDetailView(generics.RetrieveAPIView):
     queryset = UserProfile.objects.all()
     serializer_class = UserProfileSerializer
+    
+@api_view(['POST', 'OPTIONS'])
+@permission_classes([AllowAny])
+def taskcreation(request):
+    if request.method == 'OPTIONS':
+        response = Response()
+        response['Access-Control-Allow-Methods'] = 'POST'
+        response['Access-Control-Allow-Headers'] = 'Content-Type'
+        return response
+
+    if request.method == 'POST':
+        print('request.data', request.data)
+        title = request.data.get('title')
+        task_status = request.data.get('status')
+        due_date = request.data.get('due_date')
+        description = request.data.get('description')
+        print('test print for task creation', title)
+        serializer = TaskSerializer(data=request.data)
+        print('serializer', serializer)
+        print('serializer', serializer.is_valid())
+
+        if serializer.is_valid():
+            # Save the validated data to the Task model
+            serializer.save()
+            return Response({'message': 'Task created successfully.'}, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

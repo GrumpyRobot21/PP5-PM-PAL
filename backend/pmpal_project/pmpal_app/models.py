@@ -57,9 +57,9 @@ class CustomUser(AbstractBaseUser):
 # Task model definition
 class Task(models.Model):
     STATUS_CHOICES = [
-        ('open', 'Open'),
-        ('in_progress', 'In Progress'),
-        ('completed', 'Completed')
+        ('Open', 'Open'),
+        ('In Progress', 'In Progress'),
+        ('Completed', 'Completed')
     ]
 
     title = models.CharField(max_length=100)

@@ -1,0 +1,12 @@
+{
+  "name": "pp5-pm-pal",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "cd frontend && npm install && npm run build",
+    "start": "python backend/manage.py runserver"
+  },
+  "engines": {
+    "node": "14.x",
+    "python": "3.8.x"
+  }
+}

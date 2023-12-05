@@ -23,12 +23,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-p!yvv=f+cc1krdn@y@$qkteabv)+=!7-9px(3(qwm8qfcx%rr*"
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['pp5-pm-pal.herokuapp.com','127.0.0.1', 'local_host', '*']
+ALLOWED_HOSTS = ['pp5-pm-pal.herokuapp.com','127.0.0.1', 'local_host']
 
 
 # Application definition
@@ -57,6 +57,7 @@ REST_FRAMEWORK = {
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     "django.contrib.sessions.middleware.SessionMiddleware",
     'corsheaders.middleware.CorsMiddleware',
     "django.middleware.common.CommonMiddleware",
@@ -141,14 +142,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = "static/"
-
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CORS_ORIGIN_ALLOW_ALL = True
 
-# django_heroku.settings(locals())
+django_heroku.settings(locals())
 AUTH_USER_MODEL = "pmpal_app.CustomUser"
 REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'pmpal_app.serializers.CustomUserSerializer',

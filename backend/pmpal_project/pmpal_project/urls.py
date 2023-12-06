@@ -18,5 +18,5 @@ from django.urls import path, include
 
 urlpatterns = [
      path('', include('pmpal_app.urls')),
-    # path('api/', include('pmpal_app.urls')),  
+    path('api/', include('pmpal_app.urls')),  
 ]
